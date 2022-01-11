@@ -8,7 +8,7 @@ Skills used: Joins, Windows Functions, Aggregate Functions, Creating View
 --All employees with salary greater than 4000
 
 Select	LastName, 
-		Dept_id 
+	Dept_id 
 from EMP
 WHERE Salary > 4000
 
@@ -23,8 +23,8 @@ from EMP
 --All employees in IT department
 
 SELECT	LastName, 
-		Salary, 
-		Date_of_employment 
+	Salary, 
+	Date_of_employment 
 FROM
 EMP e join DEPT d
 on e.Dept_id = d.Dept_id
@@ -34,7 +34,7 @@ d.dept = 'IT'
 
 --Average salary in each department(department name and the salary)
 SELECT	d.dept as department,
-		SUM(e.Salary) as average_salary
+	SUM(e.Salary) as average_salary
 FROM
 EMP e join DEPT d
 on e.Dept_id = d.Dept_id
@@ -45,7 +45,7 @@ Order by 2 desc
 Create View average_department_salary
 as
 SELECT	d.dept as department, 
-		AVG(Salary) as average_salary
+	AVG(Salary) as average_salary
 FROM
 EMP e join DEPT d
 on e.Dept_id = d.Dept_id
@@ -57,22 +57,22 @@ Select * From average_department_salary order by 2 desc
 --For each employee number of days he worked for the company till today
 
 SELECT	LastName, 
-		Date_of_employment, 
-		GETDATE() as today,
-		(Datediff(dd, Date_of_employment, GETDATE()) + 1)
-		- (Datediff(ww, Date_of_employment, GETDATE()) * 2)
-		- (CASE WHEN DateName(dw, Date_of_employment) = 'Sunday' Then  1 else 0 END)
-		- (CASE WHEN DateName(dw, GETDATE()) = 'Saturday' Then  1 else 0 END)
+	Date_of_employment, 
+	GETDATE() as today,
+	(Datediff(dd, Date_of_employment, GETDATE()) + 1)
+	- (Datediff(ww, Date_of_employment, GETDATE()) * 2)
+	- (CASE WHEN DateName(dw, Date_of_employment) = 'Sunday' Then  1 else 0 END)
+	- (CASE WHEN DateName(dw, GETDATE()) = 'Saturday' Then  1 else 0 END)
 FROM
 EMP
 
 
 --All duplicated records in EMP table (in order to identify duplicates please ignore column Id)
 SELECT	LastName, 
-		Date_of_employment, 
-		Dept_id,
-		Salary,
-		count(*) as count 
+	Date_of_employment, 
+	Dept_id,
+	Salary,
+	count(*) as count 
 from EMP
 GROUP BY LastName, Date_of_employment, Dept_id, Salary
 Having count(*) > 1
@@ -121,7 +121,7 @@ VALUES
 Insert into DEPT
 	(Dept_id, Dept, Dept_Manager_id)
 Values
-(100, 'Ksiêgowoœæ', 2),
+(100, 'KsiÃªgowoÅ“Ã¦', 2),
 (1, 'IT', 3),
 (4, 'HR', 4),
 (35, 'Handel', 5)
