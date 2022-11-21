@@ -78,51 +78,19 @@ GROUP BY LastName, Date_of_employment, Dept_id, Salary
 Having count(*) > 1
 
 
+-- HackerRank 
+-- https://www.hackerrank.com/challenges/the-pads/problem?isFullScreen=true
 
 
---making duplicate
-Insert into EMP
-	(LastName, Dept_id, Salary, Date_of_employment)
-VALUES
-('Kowalski', 6, 4000, '2014-01-31')
+SELECT  CONCAT(Name,'(',LEFT(Occupation,1),')')
+FROM OCCUPATIONS
+ORDER BY Name;
+
+SELECT CONCAT('There are a total of ', COUNT(Occupation), ' ', LOWER(Occupation), 's.')
+FROM OCCUPATIONS
+GROUP BY Occupation
+ORDER BY COUNT(Occupation);
 
 
--- creating tables and insreting values needed for queries 
-DROP table EMP
-Create Table EMP 
-(
-Id int NOT NULL IDENTITY(1,1) PRIMARY KEY, 
-LastName varchar(50), 
-Dept_id int, 
-Salary int, 
-Date_of_employment date
-)
 
-DROP table DEPT
-Create Table DEPT
-( 
-Dept_id int, 
-Dept varchar(50), 
-Dept_Manager_id int
-)
-
-
-Insert into EMP
-	(LastName, Dept_id, Salary, Date_of_employment)
-VALUES
-('Kowalski', 1, 4000, '2014-01-31'),
-('Nowak', 100, 6000, '2014-03-01'),
-('Maliniak', 1, 5000, '2015-05-03'),
-('Lewandowski', 4, 2700, '2016-01-01'),
-('Czarnecki', 35, 2000, '2016-01-01'),
-('Kowalski', 6, 4000, '2014-01-31')
-
-
-Insert into DEPT
-	(Dept_id, Dept, Dept_Manager_id)
-Values
-(100, 'Ksiêgowoœæ', 2),
-(1, 'IT', 3),
-(4, 'HR', 4),
-(35, 'Handel', 5)
 
