@@ -6,7 +6,7 @@ Data is uploaded to PostgreSQL database in AWS RDS.
 
 
 ## Project 2: BellaBeat analysis
-###Deliverables
+### Deliverables
 - A clear summary of the business task
 - A description of all data sources used
 - Documentation of any cleaning or manipulation of data
@@ -16,5 +16,5 @@ Data is uploaded to PostgreSQL database in AWS RDS.
 - [bellabeat_analysis.ipynb](https://github.com/RadoslawJDA/Portfolio/blob/main/BellaBeat_analysis/bellabeat_analysis.ipynb)
 
 ## Project 3: SQL Queries
-### Basic SQL Queries from data exploration
+Basic SQL Queries from data exploration
 - [EDA_Rollercoasters.ipynb](https://github.com/RadoslawJDA/Portfolio/blob/main/Rollercoaster-EDA/EDA_Rollercoasters.ipynb)
