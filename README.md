@@ -6,8 +6,7 @@ Data is uploaded to PostgreSQL database in AWS RDS.
 
 
 ## Project 2: BellaBeat analysis
-How Can a Wellness Technology Company Play It Smart?
-## Deliverables
+# Deliverables
 - A clear summary of the business task
 - A description of all data sources used
 - Documentation of any cleaning or manipulation of data
