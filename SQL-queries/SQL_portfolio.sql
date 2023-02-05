@@ -1,32 +1,5 @@
 --Skills used: Joins, Windows Functions, Aggregate Functions, Creating View
 
---All employees with salary greater than 4000
-
-Select	LastName, 
-	Dept_id 
-from EMP
-WHERE Salary > 4000
-
-
---Number of rows in the table EMP.
-
-Select 
-	count(*) as mumber_of_rows 
-from EMP
-
-
---All employees in IT department
-
-SELECT	LastName, 
-	Salary, 
-	Date_of_employment 
-FROM
-EMP e join DEPT d
-on e.Dept_id = d.Dept_id
-WHERE
-d.dept = 'IT'
-
-
 --Average salary in each department(department name and the salary)
 SELECT	d.dept as department,
 	SUM(e.Salary) as average_salary
@@ -76,7 +49,6 @@ Having count(*) > 1
 -- HackerRank 
 -- https://www.hackerrank.com/challenges/the-pads/problem?isFullScreen=true
 
-
 SELECT  CONCAT(Name,'(',LEFT(Occupation,1),')')
 FROM OCCUPATIONS
 ORDER BY Name;
@@ -85,7 +57,4 @@ SELECT CONCAT('There are a total of ', COUNT(Occupation), ' ', LOWER(Occupation)
 FROM OCCUPATIONS
 GROUP BY Occupation
 ORDER BY COUNT(Occupation);
-
-
-
 
