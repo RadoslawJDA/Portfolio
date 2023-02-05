@@ -1,9 +1,4 @@
-/*
-
-Skills used: Joins, Windows Functions, Aggregate Functions, Creating View
-
-*/
-
+--Skills used: Joins, Windows Functions, Aggregate Functions, Creating View
 
 --All employees with salary greater than 4000
 
