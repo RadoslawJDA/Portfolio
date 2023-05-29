@@ -16,5 +16,5 @@ Data is uploaded to PostgreSQL database in AWS RDS.
 - [bellabeat_analysis.ipynb](https://github.com/RadoslawJDA/Portfolio/blob/main/BellaBeat_analysis/bellabeat_analysis.ipynb)
 
 ## Project 3: SQL Queries
-Basic SQL Queries from data exploration
+SQL Queries for data exploration amd analysis
 - [EDA_Rollercoasters.ipynb](https://github.com/RadoslawJDA/Portfolio/blob/main/Rollercoaster-EDA/EDA_Rollercoasters.ipynb)
