@@ -21,4 +21,4 @@ SQL Queries for data exploration amd analysis
 
 ## Pokemon Data Analysis
 Developed a comprehensive dashboard focusing on Pokémon attributes using Python and DAX  in Power BI.
--[pokemon-dashboard](https://www.novypro.com/project/pokemon-dashboard-1)
+- [pokemon-dashboard](https://www.novypro.com/project/pokemon-dashboard-1)
