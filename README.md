@@ -1,4 +1,4 @@
-## Project 1: YouTube ETL pipeline
+## YouTube ETL pipeline
 Working with Youtube's API to collect video statistics from a channel and build an ETL pipeline using Python.
 Data is uploaded to PostgreSQL database in AWS RDS.
 
