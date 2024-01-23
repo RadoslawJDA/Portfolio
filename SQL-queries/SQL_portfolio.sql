@@ -1,60 +1,75 @@
---Skills used: Joins, Windows Functions, Aggregate Functions, Creating View
+-- Delete duplicate records from work, product_size, subject and image_link tables
+	delete from work 
+	where ctid not in (select min(ctid)
+						from work
+						group by work_id );
 
---Average salary in each department(department name and the salary)
-SELECT	d.dept as department,
-	SUM(e.Salary) as average_salary
-FROM
-EMP e join DEPT d
-on e.Dept_id = d.Dept_id
-GROUP BY(d.Dept)
-Order by 2 desc
+	delete from product_size 
+	where ctid not in (select min(ctid)
+						from product_size
+						group by work_id, size_id );
 
---Create view of data for later visualizations
-Create View average_department_salary
-as
-SELECT	d.dept as department, 
-	AVG(Salary) as average_salary
-FROM
-EMP e join DEPT d
-on e.Dept_id = d.Dept_id
-GROUP BY(d.Dept)
+	delete from subject 
+	where ctid not in (select min(ctid)
+						from subject
+						group by work_id, subject );
 
-Select * From average_department_salary order by 2 desc
+	delete from image_link 
+	where ctid not in (select min(ctid)
+						from image_link
+						group by work_id );
 
+-- How many museums are open every single day
+	select count(1)
+	from (select museum_id, count(1)
+		  from museum_hours
+		  group by museum_id
+		  having count(1) = 7) x;
+		 
+-- Top 5 most popular museum (Popularity is defined based on most no of paintings in a museum)
+	select m.name as museum, m.city,m.country,x.no_of_painintgs
+	from (	select m.museum_id, count(1) as no_of_painintgs
+			, rank() over(order by count(1) desc) as rnk
+			from work w
+			join museum m on m.museum_id=w.museum_id
+			group by m.museum_id) x
+	join museum m on m.museum_id=x.museum_id
+	where x.rnk<=5;	
+	
 
---For each employee number of days he worked for the company till today
-
-SELECT	LastName, 
-	Date_of_employment, 
-	GETDATE() as today,
-	(Datediff(dd, Date_of_employment, GETDATE()) + 1)
-	- (Datediff(ww, Date_of_employment, GETDATE()) * 2)
-	- (CASE WHEN DateName(dw, Date_of_employment) = 'Sunday' Then  1 else 0 END)
-	- (CASE WHEN DateName(dw, GETDATE()) = 'Saturday' Then  1 else 0 END)
-FROM
-EMP
-
-
---All duplicated records in EMP table (in order to identify duplicates please ignore column Id)
-SELECT	LastName, 
-	Date_of_employment, 
-	Dept_id,
-	Salary,
-	count(*) as count 
-from EMP
-GROUP BY LastName, Date_of_employment, Dept_id, Salary
-Having count(*) > 1
-
-
--- HackerRank 
--- https://www.hackerrank.com/challenges/the-pads/problem?isFullScreen=true
-
-SELECT  CONCAT(Name,'(',LEFT(Occupation,1),')')
-FROM OCCUPATIONS
-ORDER BY Name;
-
-SELECT CONCAT('There are a total of ', COUNT(Occupation), ' ', LOWER(Occupation), 's.')
-FROM OCCUPATIONS
-GROUP BY Occupation
-ORDER BY COUNT(Occupation);
-
+-- 3 least popular canva sizes
+	select label,ranking,no_of_paintings
+	from (
+		select cs.size_id,cs.label,count(1) as no_of_paintings
+		, dense_rank() over(order by count(1) ) as ranking
+		from work w
+		join product_size ps on ps.work_id=w.work_id
+		join canvas_size cs on cs.size_id::text = ps.size_id
+		group by cs.size_id,cs.label) x
+	where x.ranking<=3;
+	
+-- Which museum is open for the longest during a day
+	select museum_name,state as city,day, open, close, duration
+	from (	select m.name as museum_name, m.state, day, open, close
+			, to_timestamp(open,'HH:MI AM') 
+			, to_timestamp(close,'HH:MI PM') 
+			, to_timestamp(close,'HH:MI PM') - to_timestamp(open,'HH:MI AM') as duration
+			, rank() over (order by (to_timestamp(close,'HH:MI PM') - to_timestamp(open,'HH:MI AM')) desc) as rnk
+			from museum_hours mh
+		 	join museum m on m.museum_id=mh.museum_id) x
+	where x.rnk=1;
+	
+-- Artists whose paintings are displayed in multiple countries
+	with cte as
+		(select distinct a.full_name as artist
+		--, w.name as painting, m.name as museum
+		, m.country
+		from work w
+		join artist a on a.artist_id=w.artist_id
+		join museum m on m.museum_id=w.museum_id)
+	select artist,count(1) as no_of_countries
+	from cte
+	group by artist
+	having count(1)>1
+	order by 2 desc;
+	
